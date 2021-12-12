@@ -12,6 +12,12 @@ struct Vec3 {
   y:float;
   z:float;
 }
+
+struct Foo {
+  x:Vec3;
+  y:Vec3;
+  z:Vec3;
+}
  
 table Monster {
   pos:Vec3; // Struct.

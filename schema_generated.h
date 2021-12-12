@@ -11,6 +11,8 @@ namespace Sample {
 
 struct Vec3;
 
+struct Foo;
+
 struct Monster;
 struct MonsterBuilder;
 struct MonsterT;
@@ -173,6 +175,35 @@ FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Vec3 FLATBUFFERS_FINAL_CLASS {
   }
 };
 FLATBUFFERS_STRUCT_END(Vec3, 12);
+
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Foo FLATBUFFERS_FINAL_CLASS {
+ private:
+  MyGame::Sample::Vec3 x_;
+  MyGame::Sample::Vec3 y_;
+  MyGame::Sample::Vec3 z_;
+
+ public:
+  Foo()
+      : x_(),
+        y_(),
+        z_() {
+  }
+  Foo(const MyGame::Sample::Vec3 &_x, const MyGame::Sample::Vec3 &_y, const MyGame::Sample::Vec3 &_z)
+      : x_(_x),
+        y_(_y),
+        z_(_z) {
+  }
+  const MyGame::Sample::Vec3 &x() const {
+    return x_;
+  }
+  const MyGame::Sample::Vec3 &y() const {
+    return y_;
+  }
+  const MyGame::Sample::Vec3 &z() const {
+    return z_;
+  }
+};
+FLATBUFFERS_STRUCT_END(Foo, 36);
 
 struct MonsterT : public flatbuffers::NativeTable {
   typedef Monster TableType;
