@@ -18,6 +18,7 @@ auto main(int argc, char **argv) -> int {
   using namespace MyGame::Sample;
   flatbuffers::FlatBufferBuilder fbb;
 
+  //// Using mixed "Create"/Object API
   // auto pos = Vec3(2, 3, 5);
   // auto mon1 = CreateMonster(fbb, &pos);
   // MonsterT monster{.pos = std::make_unique<Vec3>(1, 2, 4)};
@@ -25,6 +26,7 @@ auto main(int argc, char **argv) -> int {
   // std::vector vec = {mon1, mon2};
   // fbb.Finish(CreateMonsterVecDirect(fbb, &vec));
 
+  // Using Object based API
   MonsterVecT monsters;
   monsters.monsters.emplace_back(std::make_unique<MonsterT>(MonsterT{.pos = std::make_unique<Vec3>(1, 2, 4)}));
   monsters.monsters.emplace_back(std::make_unique<MonsterT>(MonsterT{.pos = std::make_unique<Vec3>(3, 6, 8)}));
