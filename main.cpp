@@ -28,8 +28,10 @@ auto main(int argc, char **argv) -> int {
 
   // Using Object based API
   MonsterVecT monsters;
-  monsters.monsters.emplace_back(std::make_unique<MonsterT>(MonsterT{.pos = std::make_unique<Vec3>(1, 2, 4)}));
-  monsters.monsters.emplace_back(std::make_unique<MonsterT>(MonsterT{.pos = std::make_unique<Vec3>(3, 6, 8)}));
+  monsters.monsters.emplace_back(std::make_unique<MonsterT>(
+      MonsterT{.pos = std::make_unique<Vec3>(1, 2, 4)}));
+  monsters.monsters.emplace_back(std::make_unique<MonsterT>(
+      MonsterT{.pos = std::make_unique<Vec3>(3, 6, 8)}));
   fbb.Finish(MonsterVec::Pack(fbb, &monsters));
 
   {
@@ -40,6 +42,15 @@ auto main(int argc, char **argv) -> int {
     std::ifstream istream("foo", std::ios::binary | std::ios::in);
     std::vector<char> bytes((std::istreambuf_iterator<char>(istream)),
                             std::istreambuf_iterator<char>());
+
+    // Directly
+    for (auto mon : *GetMonsterVec(bytes.data())->monsters()) {
+      fmt::print("({},{},{})\n", mon->pos()->x(), mon->pos()->y(),
+                 mon->pos()->z());
+    }
+    fmt::print("\n");
+
+    // Using Object based API
     MonsterVecT vec;
     GetMonsterVec(bytes.data())->UnPackTo(&vec);
     for (auto &mon : vec.monsters) {
